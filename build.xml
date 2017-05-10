@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="FoxPic" default="makejar" basedir=".">
+	<target name="init">
+		<delete dir="dest"></delete>
+		<delete dir="release"></delete>
+		
+		<mkdir dir="dest"></mkdir>
+		<mkdir dir="release"></mkdir>
+	</target>
+   
+	<target name="cpySrc" depends="init">
+		<copy todir="dest">
+			<fileset dir="bin">
+			</fileset>	
+		</copy>
+	</target>
+	<target name="makejar" depends="cpySrc">
+		<jar jarfile="release/foxpic.jar" basedir="dest">
+			<manifest>
+				<attribute name="Main-class" value="com.cy.pictool.MainWin" />
+			</manifest>
+		</jar>
+
+		<copy todir="release">
+			<fileset dir="./">
+				<include name="go.sh" /> 
+				<include name="setting.config" />
+				<include name="path.cfg" /> 
+			</fileset>
+		</copy>
+
+		<!--
+		<copy todir="/Volumes/RamDisk/foxpic">
+			<fileset dir="release">
+				<include name="foxpic.jar" /> 
+			</fileset>
+		</copy>
+		-->
+		<copy todir="/Volumes/Macintosh BAK/foxpic/foxpic.app/Contents/Resources/Java">
+			<fileset dir="release">
+				<include name="foxpic.jar" /> 
+			</fileset>
+		</copy> 
+		<delete dir="dest"></delete>
+	</target>
+</project>
